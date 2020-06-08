@@ -3,15 +3,15 @@ import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
-    class Menu extends Component {
+class Menu extends Component {
+    constructor(props) {
+        super(props);
 
-        constructor(props) {
-            super(props);
-
-            this.state = {
-                selectedDish: null
-            }
+        this.state = {
+            selectedDish: null
         }
+    }
+
 
         onDishSelect(dish) {
             this.setState({ selectedDish: dish});
