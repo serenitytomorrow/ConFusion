@@ -1,23 +1,14 @@
+import Main from './components/MainComponent';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Menu from './components/MenuComponent';
-import { DISHES } from './shared/dishes';
+import './App.css'
 
 export default class App extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        dishes: DISHES
-      };
-    }
 
-      render() {
-        return (
-          <div className="App">
-            <Menu dishes={this.state.dishes} />
-          </div>
-        );
-      }
-    }
+  render() {
+    return (
+      <div className="App">
+        <Main />
+      </div>
+    );
+  }
+}
