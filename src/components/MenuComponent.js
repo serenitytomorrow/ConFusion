@@ -24,7 +24,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     const Menu = (props) => {console.log('Menu:props.onClick: '+props.onClick)
         const menu = props.dishes.map((dish) => {
             return (
-                <div className="col-12 col-md-5 m-1"  key={dish.id}>
+                <div className="col-12 col-md-5 m-1" key={dish.id}>
                     <RenderMenuItem dish={dish} onClick={props.onClick} />
 
                 </div>
