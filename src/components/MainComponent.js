@@ -28,12 +28,14 @@ export default class Main extends React.Component {
               />
           );
         }
-        return (
+        return (<>
+            <Header />
             <Switch>
                 <Route path='/home' component={HomePage} />
                 <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
                 <Redirect to="/home" />
             </Switch>
+            <Footer /></>
         );
       }
     }
