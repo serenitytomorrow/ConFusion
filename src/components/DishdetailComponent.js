@@ -1,3 +1,4 @@
+import { Loading } from './LoadingComponent';
 import React, { Component } from 'react';
 import { Media, ListGroup, ListGroupItem } from 'reactstrap';
 import { Card, CardImg, CardText, CardBody,
@@ -8,7 +9,7 @@ import CommentForm from './CommentForm';
 function RenderDish({dish}) {
     return <p>This is RenderDish: {dish.name} {dish.description} </p>
 }
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
     return comments.map((comment) => {
         return (
             <li key={'dishdetail-'+ comment.id}>
@@ -17,9 +18,27 @@ function RenderComments({comments}) {
             </li>
         )});
 }
- const  DishDetail = ({dish, comments}) => {
+ const  DishDetail = ({dish, comments, isLoading, errMess}) => {
 
-    if( dish === null ){
+     if (isLoading) {
+         return(
+             <div className="container">
+                 <div className="row">
+                     <Loading />
+                 </div>
+             </div>
+         );
+     }
+     else if (errMess) {
+         return(
+             <div className="container">
+                 <div className="row">
+                     <h4>{props.errMess}</h4>
+                 </div>
+             </div>
+         );
+     }
+     else if( dish === null ){
         return (<></>)}
     else{console.log('dish.name: ' + dish.name)
         return (
@@ -40,8 +59,8 @@ function RenderComments({comments}) {
                     <RenderDish dish={dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">{console.log('comments[0]: ' + comments[0][0])}
-                    <RenderComments comments={comments} />
-                    <CommentForm />
+                <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
+                    <CommentForm dishId={dishId} addComment={addComment} />
                 </div>
             </div>
             </div>
