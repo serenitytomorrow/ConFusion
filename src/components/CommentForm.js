@@ -59,6 +59,7 @@ export default class CommentForm extends Component {
   handleSubmit(values) {
       console.log('Current State is: ' + JSON.stringify(values));
       alert('Current State is: ' + JSON.stringify(values));
+      this.props.resetFeedbackForm();
       // event.preventDefault();
   }
   handleBlur = (field) => (evt) => {
@@ -88,7 +89,7 @@ export default class CommentForm extends Component {
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Submit Your Comment</ModalHeader>
                 <ModalBody>
-                <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
 
                     <Row className="form-group">
                         <Label htmlFor="author" md={2}>Author</Label>
@@ -132,7 +133,7 @@ export default class CommentForm extends Component {
                             <Input type="textarea" name="review" id="review" />
                         </Col>
                     </Row>
-                </LocalForm>
+                </Form>
                 </ModalBody>
             </Modal>
             </>
