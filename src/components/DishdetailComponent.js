@@ -58,7 +58,7 @@ function RenderComments({comments, addComment, dishId}) {
             <div className="row">
                 <div className="col-12 col-md-5 m-1">
                     <RenderDish dish={props.dish} />
-                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
