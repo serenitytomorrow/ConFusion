@@ -5,6 +5,7 @@ import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderDish({dish}) {
     return <p>This is RenderDish: {dish.name} {dish.description} </p>
@@ -40,7 +41,7 @@ function RenderComments({comments, addComment, dishId}) {
      }
      else if( props.dish === null ){
         return (<></>)}
-    else{console.log('dish.name: ' + props.dish.name)
+    else{
         return (
             <div className="container">
             <div className="row">
@@ -57,8 +58,9 @@ function RenderComments({comments, addComment, dishId}) {
             <div className="row">
                 <div className="col-12 col-md-5 m-1">
                     <RenderDish dish={props.dish} />
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                 </div>
-                <div className="col-12 col-md-5 m-1">{console.log('comments[0]: ' + props.comments[0][0])}
+                <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                     <CommentForm dishId={props.dishId} addComment={props.addComment} />
                 </div>
