@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import { baseUrl } from '../shared/baseUrl';
 
+
+
 function RenderDish({dish}) {
     return <p>This is RenderDish: {dish.name} {dish.description} </p>
 }
