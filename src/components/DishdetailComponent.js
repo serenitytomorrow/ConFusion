@@ -10,7 +10,7 @@ import { baseUrl } from '../shared/baseUrl';
 function RenderDish({dish}) {
     return <p>This is RenderDish: {dish.name} {dish.description} </p>
 }
-function RenderComments({comments, addComment, dishId}) {
+function RenderComments({comments, postComment, dishId}) {
     return comments.map((comment) => {
         return (
             <li key={'dishdetail-'+ comment.id}>
@@ -61,8 +61,8 @@ function RenderComments({comments, addComment, dishId}) {
                     <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
-                    <CommentForm dishId={props.dishId} addComment={props.addComment} />
+                <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />
+                    <CommentForm dishId={props.dishId} postComment={props.postComment} />
                 </div>
             </div>
             </div>
