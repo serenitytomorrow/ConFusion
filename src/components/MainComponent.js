@@ -13,7 +13,7 @@ import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -29,6 +29,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchDishes: () => { dispatch(fetchDishes())},
+  fetchLeaders: () => { dispatch(fetchLeaders())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
@@ -51,6 +52,7 @@ class Main extends Component {
     componentDidMount() {
         this.props.fetchDishes();
         this.props.fetchComments();
+        this.props.fetchLeaders();
         this.props.fetchPromos();
     }
     onDishSelect(dishId) {

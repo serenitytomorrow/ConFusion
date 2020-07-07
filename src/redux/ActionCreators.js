@@ -49,6 +49,41 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 
+export const fetchLeaders = () => (dispatch) => {
+    dispatch(dishesLoading(true));
+    return fetch(baseUrl + 'leaders')
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+      })
+    .then(response => response.json())
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)));
+};
+
+export const leadersFailed = (errmess) => ({
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errmess
+});
+
+export const addLeaders = (leader) => ({
+    type: ActionTypes.ADD_LEADER,
+    payload: leader
+});
+
+export const leadersLoading = () => ({
+    type: ActionTypes.LEADERS_LOADING
+});
+
 export const fetchComments = () => (dispatch) => {
     return fetch(baseUrl + 'comments')
     .then(response => {
