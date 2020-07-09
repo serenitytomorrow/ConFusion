@@ -1,13 +1,16 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+
 
 function RenderLeader({leaders}){
     const leadersList = leaders.map((leader) => {
         return (
+
             <Media tag="li">
               <Media left href="#">
-                <Media object data-src="/assets/images/alberto.png/64x64" alt="Generic placeholder image" />
+                <Media object data-src={baseUrl + leader.image + '/64x64'} alt={leader.name} />{baseUrl + leader.image + '/64x64'}
               </Media>
               <Media body>
                 <Media heading>

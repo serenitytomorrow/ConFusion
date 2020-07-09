@@ -76,7 +76,7 @@ export const leadersFailed = (errmess) => ({
 });
 
 export const addLeaders = (leader) => ({
-    type: ActionTypes.ADD_LEADER,
+    type: ActionTypes.ADD_LEADERS,
     payload: leader
 });
 
