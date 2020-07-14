@@ -1,15 +1,9 @@
 import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';
 import { baseUrl } from '../shared/baseUrl';
 
-export const addComment = (dishId, rating, author, comment) => ({
+export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
-    payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
-    }
+    payload: comment
 });
 
 export const fetchDishes = () => (dispatch) => {
@@ -110,7 +104,7 @@ export const commentsFailed = (errmess) => ({
 });
 
 export const addComments = (comment) => ({
-    type: ActionTypes.ADD_COMMENT,
+    type: ActionTypes.ADD_COMMENTS,
     payload: comment
 });
 
@@ -184,4 +178,54 @@ export const promosFailed = (errmess) => ({
 export const addPromos = (promos) => ({
     type: ActionTypes.ADD_PROMOS,
     payload: promos
+});
+
+export const addFeedback = (feedback) => ({
+    type: ActionTypes.POST_FEEDBACK,
+    payload: feedback
+});
+
+export const postFeedback = (firstname, lastname, telnum, email, message) => (dispatch) => {
+
+    const newFeedback = {
+        firstName: firstname,
+        lastName: lastname,
+        contactTel: telnum,
+        email: email,
+        feedback: message
+    };
+    newFeedback.date = new Date().toISOString();
+
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response => dispatch(addFeedback(response)))
+    .catch(error =>  { console.log('post feedbacks', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+};
+
+export const feedbackFailed = () => ({
+    type: ActionTypes.FEEDBACK_FAILED
+});
+
+export const feedbackLoading = (errmess) => ({
+    type: ActionTypes.FEEDBACK_LOADING,
+    payload: errmess
 });

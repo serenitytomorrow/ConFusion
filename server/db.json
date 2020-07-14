@@ -201,6 +201,48 @@
       "comment": "It's your birthday, we're gonna party!",
       "author": "25 Cent",
       "date": "2011-12-02T17:57:28.556094Z"
+    },
+    {
+      "author": "commenttest1",
+      "comment": "commenttest1",
+      "date": "2020-07-14T13:52:32.238Z",
+      "id": 20
+    },
+    {
+      "author": "testcomment2",
+      "comment": "testcomment2",
+      "date": "2020-07-14T14:44:53.634Z",
+      "id": 21
+    },
+    {
+      "rating": 1,
+      "author": "test3",
+      "comment": "test3",
+      "date": "2020-07-14T14:59:59.883Z",
+      "id": 22
+    },
+    {
+      "rating": "5",
+      "author": "test4",
+      "comment": "test4",
+      "date": "2020-07-14T15:00:24.740Z",
+      "id": 23
+    },
+    {
+      "dishId": 0,
+      "rating": "2",
+      "author": "test4",
+      "comment": "test4",
+      "date": "2020-07-14T15:15:17.460Z",
+      "id": 24
+    },
+    {
+      "dishId": 3,
+      "rating": 1,
+      "author": "test5",
+      "comment": "test5",
+      "date": "2020-07-14T15:15:55.147Z",
+      "id": 25
     }
   ],
   "promotions": [
@@ -263,6 +305,14 @@
       "message": "afadsfds",
       "date": "2017-12-04T09:41:49.890Z",
       "id": 1
+    },
+    {
+      "firstName": "test6",
+      "lastName": "test6",
+      "contactTel": "345345345",
+      "email": "kldfji355kk@mailinator.com",
+      "date": "2020-07-14T15:18:57.268Z",
+      "id": 2
     }
   ]
 }

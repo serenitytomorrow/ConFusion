@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
-import { DISHES } from '../shared/dishes';
+
 import DishDetail from './DishdetailComponent'
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import Test from './Test';
 import About from './AboutComponent';
 import Home from './HomeComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Contact from './ContactComponent';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
+
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import { postFeedback, postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -33,7 +34,8 @@ const mapDispatchToProps = dispatch => ({
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
-  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
+  postFeedback:  (firstname, lastname, telnum, email, message) => dispatch(postFeedback(firstname, lastname, telnum, email, message))
 });
 
 
@@ -43,10 +45,10 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
-      promotions: PROMOTIONS,
-      leaders: LEADERS
+      dishes: [],
+      comments: [],
+      promotions: [],
+      leaders: []
     };
   }
     componentDidMount() {
@@ -81,6 +83,10 @@ class Main extends Component {
           }
 
           const DishWithId = ({match}) => {
+              const tmp1 = this.props.comments.comments
+              const tmp2 = this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))
+              console.log(tmp1)
+              console.log(tmp2)
             return(
                 <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
                   isLoading={this.props.dishes.isLoading}
@@ -88,6 +94,7 @@ class Main extends Component {
                   comments={this.props.comments.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
                   commentsErrMess={this.props.comments.errMess}
                   postComment={this.props.postComment}
+                  resetFeedbackForm={this.props.resetFeedbackForm}
                 />
             );
           };
@@ -100,10 +107,11 @@ class Main extends Component {
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                       <Switch location={this.props.location}>
                           <Route path='/home' component={HomePage} />
-                          <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders.leaders} />} />} />
+                          <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders.leaders} />} />
                           <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
                           <Route path='/menu/:dishId' component={DishWithId} />
-                          <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                          <Route exact path='/contactus' component={() => <Contact postFeedback={this.props.postFeedback}  resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                          <Route path='/menu/test' component={Test} />
                           <Redirect to="/home" />
                       </Switch>
                     </CSSTransition>

@@ -5,7 +5,7 @@ import { Card, CardImg, CardText, CardBody,
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Modal, ModalHeader, ModalBody } from 'reactstrap';
- import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
 const required = (val) => val && val.length;
@@ -29,22 +29,17 @@ export default class CommentForm extends Component {
                 rating: false
             }
         };
-         this.toggleModal = this.toggleModal.bind(this);
-
-
-
-
-      this.handleInputChange = this.handleInputChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.handleBlur = this.handleBlur.bind(this);
-
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   toggleModal() {
     this.setState({
       isModalOpen: !this.state.isModalOpen
     });
-}
+  }
 
   handleInputChange(event) {
       const target = event.target;
@@ -57,11 +52,14 @@ export default class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-      console.log('Current State is: ' + JSON.stringify(values));
-      alert('Current State is: ' + JSON.stringify(values));
+      this.toggleModal();
+      alert(JSON.stringify(values));
+      const ratingChecked = values.rating ? values.rating : 1;
+      this.props.postComment(this.props.dishId, ratingChecked, values.author, values.comment);
       this.props.resetFeedbackForm();
       // event.preventDefault();
   }
+
   handleBlur = (field) => (evt) => {
       this.setState({
           touched:  { ...this.state.touched, [field]: true}
@@ -89,8 +87,7 @@ export default class CommentForm extends Component {
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader toggle={this.toggleModal}>Submit Your Comment</ModalHeader>
                 <ModalBody>
-                <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
-
+                <LocalForm model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                     <Row className="form-group">
                         <Label htmlFor="author" md={2}>Author</Label>
                         <Col md={10}>
@@ -113,27 +110,37 @@ export default class CommentForm extends Component {
                              />
                         </Col>
                     </Row>
-
                     <Row className="form-group">
                         <Label htmlFor="rating" md={2}>Rating</Label>
                         <Col md={10}>
-
-                                 <Input type="select" name="rating" id="rating">
+                            <Control.select model=".rating" id="rating" name="rating"
+                                placeholder=""
+                                className="form-control">
                                    <option>1</option>
                                    <option>2</option>
                                    <option>3</option>
                                    <option>4</option>
                                    <option>5</option>
-                                </Input>
+                            </Control.select>
                         </Col>
                     </Row>
                     <Row className="form-group">
                         <Label htmlFor="review" md={2}>review</Label>
                         <Col md={10}>
-                            <Input type="textarea" name="review" id="review" />
+                            <Control.textarea model=".comment" id="comment" name="comment"
+                                rows="3" className="form-control" validators={required} />
+                            <Errors className="text-danger" model=".comment" show="touched"
+                                messages={{ required: 'Required'}} />
                         </Col>
                     </Row>
-                </Form>
+                    <Row className="form-group">
+                        <Col md={{size:10, offset: 2}}>
+                            <Button type="submit" color="primary">
+                            Send Comment
+                            </Button>
+                        </Col>
+                    </Row>
+                </LocalForm>
                 </ModalBody>
             </Modal>
             </>

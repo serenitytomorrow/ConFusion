@@ -11,9 +11,9 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 function RenderDish({dish}) {
-    return <p>This is RenderDish: {dish.name} {dish.description} </p>
+    return <p> {dish.name} {dish.description} </p>
 }
-function RenderComments({comments, postComment, dishId}) {
+function RenderComments({comments}) {
     return comments.map((comment) => {
         return (
             <Stagger in>
@@ -84,8 +84,8 @@ function RenderComments({comments, postComment, dishId}) {
                     </FadeTransform>
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />
-                    <CommentForm dishId={props.dishId} postComment={props.postComment} />
+                <RenderComments comments={props.comments} />
+                <CommentForm postComment={props.postComment} dishId={props.dish.id} resetFeedbackForm={props.resetFeedbackForm} />
                 </div>
             </div>
             </div>
