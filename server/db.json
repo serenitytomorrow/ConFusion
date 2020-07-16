@@ -243,6 +243,14 @@
       "comment": "test5",
       "date": "2020-07-14T15:15:55.147Z",
       "id": 25
+    },
+    {
+      "dishId": 2,
+      "rating": "5",
+      "author": "Love!",
+      "comment": "Vodunutty is haven!!1!",
+      "date": "2020-07-16T12:05:26.908Z",
+      "id": 26
     }
   ],
   "promotions": [
